@@ -1,8 +1,8 @@
-const express=equire('express');
-const router=express.router();
-
+const express=require('express');
+const router=express.Router();
+const  { verifyToken }= require("../util/verifyToken");
 const userController=require("../controllers/user.controller")
 
 
-router.get("/",userController.userAll);
+router.get("/user",verifyToken,userController.allUser);
 module.exports=router;

@@ -6,6 +6,8 @@ const sequelize=new Sequelize('chat','root','Ineed$10lpa',{
 	host:'localhost',
 	dialect:'mysql',
 }) ;
+
+
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');

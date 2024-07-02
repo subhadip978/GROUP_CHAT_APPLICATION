@@ -1,35 +1,50 @@
+const Sequelize=require('sequelize');
 
+const sequelize=require("../util/database");
+const User=require('./user');
+const Message=require('./message');
 
-const sequalize=require("../util/database");
+const Chat=sequelize.define('chats',{
+	id:{
 
-
-const Chat=sequalize.define('chat',{
-	id:{},
+		type:Sequelize.INTEGER,
+		allowNull:false,
+		autoIncrement:true,
+		primaryKey:true,
+	},
 	chatName:{
-		Type:Sequalize.STRING,
+		type:Sequelize.STRING,
 		allowNull:true,
 	},
+	
 
 	isGroupChat:{
-		type:Sequalize.BOOLEAN,
+		type:Sequelize.BOOLEAN,
 		defaultValue:false,
-	},
+	}
+},
 
-	userIds:{
-		type:Sequalize.INTEGER,
-		allowNull:true,
-		references:{
-			model:'User',
-			key:'id',
-		},
-	},
-	latestMessageId:{
-		type:Sequalize.INTEGER,
-		references:{
-			model:'Message',
-			key:'id',
-		},
-	},
+	{
+		timestamps:true,
+	}
+
+)
+
+User.belongsToMany(Chat, { through:'chatusers', as: 'chats', foreignKey: 'userId', onDelete: 'CASCADE' });
+Chat.belongsToMany(User,{ through:'chatusers', as:'users', foreignKey: 'chatId', onDelete: 'CASCADE' });
 
 
-})
+Chat.belongsTo(User,{foreignKey:'groupAdminId',as:'groupAdmin'});
+Chat.belongsTo(Message, { foreignKey:'latestMessageId',as: 'latestMessage'});
+
+
+Message.belongsTo(Chat, {
+	foreignKey: 'chatId',
+	as: 'chat'  
+});
+ Chat.hasMany(Message, {
+ 	 	foreignKey: 'chatId',
+ 	  	as: 'message'  
+ 	    });
+ 
+module.exports=Chat;

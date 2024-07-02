@@ -1,21 +1,36 @@
-import React from 'react'
-import {Routes,Route,BrowserRouter} from 'react-router-dom' 
+import React, { useContext } from 'react'
+import {Routes,Route,BrowserRouter, Navigate} from 'react-router-dom' 
 
 import Signup from './pages/signup/Signup'
-import Home from './pages/home/Home'
+import Signin from './pages/signin/Signin'
+// import Home from './pages/home/Home'
+import ChatPage from './pages/chatpage/ChatPage'
+ import ChatProvider, { ChatContext } from './context/ChatProvider'
 const App = () => {
+
+    const user=useContext(ChatContext);
+    if(user){
+      <Navigate to="/" />
+    }
   return (
     <div>
       <BrowserRouter>
-      
-      <Routes>
+     <ChatProvider>
 
-        <Route path="/" element={<Home/>}>      </Route>
-        <Route path="/signup" element={<Signup/>}> </Route>
-        {/* <Route path="/signin" element={signin}> </Route>
-        <Route path="/chat" element={Chat}> </Route> */}
+
+      <Routes>
+        
+
+
+        {/* <Route path="/" element={<Home/>}>      </Route> */}
+        <Route path="/" element={<Signup/>}> </Route>
+         <Route path="/signin" element={<Signin/>}> </Route>
+        <Route path="/chat" element={<ChatPage/>}> </Route>  
+       
 
       </Routes>
+      </ChatProvider>
+      
 
 
       </BrowserRouter>
