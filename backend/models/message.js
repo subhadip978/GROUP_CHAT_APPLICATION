@@ -13,7 +13,7 @@ const Message=sequelize.define('messages',{
 
 
 content:{
-	type:Sequelize.STRING,
+	type:Sequelize.STRING(2083),
 	allowNull:true
 
 },

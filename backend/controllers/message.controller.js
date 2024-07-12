@@ -52,8 +52,11 @@ exports.sendFile = async (req, res) => {
             const s3Client = new S3Client({
                 region: "ap-south-1",
                 credentials: {
-                    accessKeyId: process.env.ACCESKEY,
-                    secretAccessKey: process.env.SECRETACCESS
+                     accessKeyId: process.env.ACCESSKEY,
+					
+					
+					
+                     secretAccessKey: process.env.SECRETACCESS
                 }
             });
 
@@ -88,7 +91,7 @@ exports.sendFile = async (req, res) => {
             senderId: req.user.id,
             content: fileurl ? fileurl : content,
             chatId: chatId,
-			types:req.file?"text":"files"
+			types:req.file?"files":"text"
         });
 
         // fetch new messages with associated chat and sender
@@ -119,6 +122,7 @@ exports.sendFile = async (req, res) => {
 
         res.json(newMessages);
     } catch (err) {
+		console.log(err);
         res.status(400).json({ message: err.message });
     }
 };

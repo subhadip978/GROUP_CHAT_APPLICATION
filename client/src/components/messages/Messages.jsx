@@ -19,7 +19,7 @@ const Messages = ({fetchAgain,setFetchAgain}) => {
 
 		const toast=useToast();
 		const fileref=useRef(null);
-		const [file,setFile]=useState("");
+		const [file,setFile]=useState(null);
 
 	
 
@@ -118,6 +118,11 @@ useEffect(()=>{
 // 			socket.emit("setup",user);
 // 			socket.on("connection",()=>setSocketConnected)
  	 	// }
+		// setInterval(()=>{
+
+ 	// 	fetchMessages();
+ 	// 	console.log(5);
+ 	// },50000)
 	
 
 fetchMessages();
@@ -128,16 +133,16 @@ fetchMessages();
 	fileref.current.click();
  }
  const fileSelected=(e)=>{
-	e.preventDefault()
-	console.log(e.target.files[0]);
-	setFile(e.target.files[0])
+	const selectfile=e.target.files[0];
+	console.log(selectfile);
+	setFile(selectfile);
 
  }
 
   return (
 	<div className='messages'
 	style={{
-		height: 'calc(100vh - 120px)', // Adjust height as needed
+		height: 'calc(100vh - 120px)', 
     overflowY: 'auto',
     padding: '10px',
     backgroundColor: '#f0f0f0',
