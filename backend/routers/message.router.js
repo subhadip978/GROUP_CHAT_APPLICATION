@@ -6,23 +6,26 @@ const fs=require("fs");
 
 const {verifyToken}=require('../util/verifyToken');
 
-const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
-	fs.mkdirSync(uploadDir); 
-  }
+ const uploadDir = path.join(__dirname, 'uploads');
+ if (!fs.existsSync(uploadDir)) {
+ 	fs.mkdirSync(uploadDir); 
+   }
 
   const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-	  cb(null, uploadDir); 
+		console.log("create destination");
+	  return cb(null,  uploadDir); 
 	},
+
 	filename: function (req, file, cb) {
-	  cb(null, Date.now() + '-' + file.originalname);
+		console.log("set filename")
+	  return cb(null, Date.now() + '-' + file.originalname);
 	}
   });
 
 
 const upload = multer({
-	storage: storage,
+ storage,
    
 });
 

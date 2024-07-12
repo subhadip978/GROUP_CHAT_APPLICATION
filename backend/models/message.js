@@ -16,6 +16,10 @@ content:{
 	type:Sequelize.STRING,
 	allowNull:true
 
+},
+types:{
+	type:Sequelize.STRING,
+	allowNull:true
 }
 
 	});

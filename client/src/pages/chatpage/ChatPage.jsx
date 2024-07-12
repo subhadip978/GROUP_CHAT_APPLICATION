@@ -15,15 +15,15 @@ import { useState } from 'react';
 
 const ChatPage=()=>{
 
-		// const {user}=ChatState();
+	
 		const {user}=useContext(ChatContext);
 		const [fetchAgain,setFetchAgain]=useState(false);
 
 	return(
 		<div className='chat'>
 			<div className="container">
-				<Mychat   fetchAgain={fetchAgain}  setFetchAgain={setFetchAgain} />
-				<ChatBlock   fetchAgain={fetchAgain}  setFetchAgain={setFetchAgain}/>
+				{user && <Mychat   fetchAgain={fetchAgain}  setFetchAgain={setFetchAgain} />}
+				{user &&<ChatBlock   fetchAgain={fetchAgain}  setFetchAgain={setFetchAgain}/>}
 
 
 			</div>

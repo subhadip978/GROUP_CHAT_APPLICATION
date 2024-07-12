@@ -45,7 +45,7 @@ const {user}=useContext(ChatContext)
                     ) : (
 					<span  style={{ 		  
 						 maxWidth:'75%',						
-						backgroundColor:`${m.sender.id ===user.id ? "#CEF0CC" :  "#B9F5D0"}`,
+						// backgroundColor:`${m.sender.id ===user.id ? "#CEF0CC" :  "#B9F5D0"}`,
 						
 							padding: '10px',
 							borderRadius: '5px',

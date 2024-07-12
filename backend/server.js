@@ -9,7 +9,7 @@ const port=process.env.PORT || 3000;
 const cookieParser=require('cookie-parser');
 const cors=require('cors');
 
-const server=require('http').createServer(app);
+// const server=require('http').createServer(app);
 
  app.use(
  	cors({
@@ -34,12 +34,12 @@ app.use("/api",chatRouter);
 app.use("/api",messageRouter);
 
 
-const io= require('socket.io')(server,{
-	pingTimeout:60000,
-	cors:{
-		origin:"http://localhost:3000"
-	},
-});
+// const io= require('socket.io')(server,{
+// 	pingTimeout:60000,
+// 	cors:{
+// 		origin:"http://localhost:3000"
+// 	},
+// });
 
 // io.on("connection",(socket)=>{
 

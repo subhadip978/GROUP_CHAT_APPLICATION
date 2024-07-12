@@ -19,9 +19,9 @@ const Messages = ({fetchAgain,setFetchAgain}) => {
 
 		const toast=useToast();
 		const fileref=useRef(null);
-		const [file,setFile]=useState(null);
+		const [file,setFile]=useState("");
 
-	// const [messages,setMessages]=useState([]);
+	
 
 	const [messages,setMessages]=useState([]);
 	const [newMessage,setNewMessage]=useState("");
@@ -60,16 +60,18 @@ const fetchMessages=async()=>{
 const sendMessage=async()=>{
 	
 
-
+console.log(file);
 	  try{
 		let inputs
 		if (file) {
+			console.log("inside file")
 			const formData = new FormData();
 			formData.append('file', file);
 			
 			formData.append('chatId', selectedChat.id); 
 			inputs = formData;
 		  } else {
+			console.log("outside file")
 			inputs = {
 			  content: newMessage,
 			  chatId: selectedChat.id,
@@ -126,8 +128,9 @@ fetchMessages();
 	fileref.current.click();
  }
  const fileSelected=(e)=>{
+	e.preventDefault()
 	console.log(e.target.files[0]);
-	selectFile(e.target.files[0])
+	setFile(e.target.files[0])
 
  }
 

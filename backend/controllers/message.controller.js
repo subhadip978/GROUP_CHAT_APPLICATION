@@ -1,8 +1,9 @@
 const Message=require("../models/message");
 const User=require("../models/user");
 const Chat=require("../models/chat");
-
-
+const {S3Client , PutObjectCommand ,GetObjectCommand} = require("@aws-sdk/client-s3");
+const {getSignedUrl}=require("@aws-sdk/s3-request-presigner");
+const fs=require("fs");
 exports.allMessages=async(req,res)=>{
 
 
@@ -43,6 +44,7 @@ exports.sendFile = async (req, res) => {
     let fileurl = null;
 
     try {
+
         if (req.file) {
             console.log(req.file);
             console.log(req.body);
@@ -85,7 +87,8 @@ exports.sendFile = async (req, res) => {
         const message = await Message.create({
             senderId: req.user.id,
             content: fileurl ? fileurl : content,
-            chatId: chatId
+            chatId: chatId,
+			types:req.file?"text":"files"
         });
 
         // fetch new messages with associated chat and sender
