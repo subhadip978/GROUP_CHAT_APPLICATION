@@ -24,19 +24,27 @@ const {user}=useContext(ChatContext)
 
 					{((isSameSender(messages,m,i,user.id)) || isLastMessage(messages,i,user.id) ) && 
 					(<span style={{
-						fontSize: '0.7em', // smaller font size
-						color: 'gray', // or any other color
+						fontSize: '0.7em', 
+						color: 'gray', 
 						marginLeft: '-5px',
 
 						
 					}}>{m.sender.username}</span>)}
 
-					<span  style={{ 
-						
-						  
-						 maxWidth:'75%',
-
-						
+				{m.type === 'file' ? (
+                        <img
+                            src={m.content}
+                            alt="Message content"
+                            style={{
+                                maxWidth: '75%',
+                                maxHeight: '200px',
+                                padding: '10px',
+                                borderRadius: '5px',
+                            }}
+                        />
+                    ) : (
+					<span  style={{ 		  
+						 maxWidth:'75%',						
 						backgroundColor:`${m.sender.id ===user.id ? "#CEF0CC" :  "#B9F5D0"}`,
 						
 							padding: '10px',
@@ -49,7 +57,7 @@ const {user}=useContext(ChatContext)
 					 </span>
 
 				
-
+					)}
 
 
 

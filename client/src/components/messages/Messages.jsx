@@ -7,8 +7,9 @@ import { getSender } from '../../config/ChatLogic';
 import Img from '../../assets/icon.svg'
 import UpdateGroupChatModel from '../searchcomponent/UpdateGroupChatModel'
 import axios from 'axios';
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import MessageBar from './MessageBar';
+import { useRef } from 'react';
 
 // const ENDPOINT="http://localhost:3000"
 // var socket,selectedChatCompare;
@@ -17,6 +18,8 @@ import MessageBar from './MessageBar';
 const Messages = ({fetchAgain,setFetchAgain}) => {
 
 		const toast=useToast();
+		const fileref=useRef(null);
+		const [file,setFile]=useState(null);
 
 	// const [messages,setMessages]=useState([]);
 
@@ -57,14 +60,27 @@ const fetchMessages=async()=>{
 const sendMessage=async()=>{
 	
 
-	if( newMessage){
+
 	  try{
+		let inputs
+		if (file) {
+			const formData = new FormData();
+			formData.append('file', file);
+			
+			formData.append('chatId', selectedChat.id); 
+			inputs = formData;
+		  } else {
+			inputs = {
+			  content: newMessage,
+			  chatId: selectedChat.id,
+			};
+		  }
   
 		  setNewMessage("");
-		const {data}=await axios.post("/api/message",{
-		  content:newMessage,
-		  chatId:selectedChat.id
-		},{Authorization:true})
+		const {data}=await axios.post("/api/message",inputs,{withCredentials:true,
+			'Content-Type': 'multipart/form-data'
+
+		})
   
 		console.log(data);
 		console.log(messages);
@@ -86,7 +102,7 @@ const sendMessage=async()=>{
 	  }
 	}
   
-  }
+  
 
 
 
@@ -105,6 +121,15 @@ useEffect(()=>{
 fetchMessages();
 
  },[selectedChat])
+
+ const selectFile=()=>{
+	fileref.current.click();
+ }
+ const fileSelected=(e)=>{
+	console.log(e.target.files[0]);
+	selectFile(e.target.files[0])
+
+ }
 
   return (
 	<div className='messages'
@@ -179,9 +204,12 @@ fetchMessages();
       <div className="send">
         <img src="" alt=""  />
         
-        <input type="file" style={{display:"none", height:"10px"}} name="" id="file" />
+        <input type="file" onChange={fileSelected} ref={fileref}
+		 style={{display:"none", height:"10px"}}
+		  name="" id="file" />
+
        <label htmlFor="file">
-      <img src={Img} alt=""  />
+      <img src={Img} alt=""   onClick={selectFile}/>
        </label>
 
         <button onClick={sendMessage}>send</button>

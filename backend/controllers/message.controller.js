@@ -38,61 +38,84 @@ exports.allMessages=async(req,res)=>{
 
 
 
-exports.sendMessage=async(req,res)=>{
+exports.sendFile = async (req, res) => {
+    const { content, chatId } = req.body;
+    let fileurl = null;
 
-const {content,chatId}=req.body ;
-	try{
+    try {
+        if (req.file) {
+            console.log(req.file);
+            console.log(req.body);
 
-		
-	
-	if (!content || !chatId){
-		return res.json(400).json("Invalid data passed into request")
-	}
+            const s3Client = new S3Client({
+                region: "ap-south-1",
+                credentials: {
+                    accessKeyId: process.env.ACCESKEY,
+                    secretAccessKey: process.env.SECRETACCESS
+                }
+            });
 
+            const filename = `chat_${req.file.originalname}`;
+            console.log("putting object");
 
-	//create new message
-	const message=await Message.create({
-		senderId:req.user.id,
-		content:content,
-		chatId:chatId,
-	})
+            const imageFilePath = req.file.path;
 
-	//fetch new messages with associated with chat and sender
-	const newMessages= await Message.findByPk(message.id,{
-		include:[
-			{
-				model:User,
-				as:'sender',
-				attributes:['id','username']
-				},
-			{
-				model:Chat,
-				as:'chat',
-				include:[
-					{
-						model:User,
-						as:'users',
-						attributes:['username','email']
-					}
+            const command = new PutObjectCommand({
+                Bucket: "newtesting12",
+                Key: filename,
+                Body: fs.createReadStream(imageFilePath),
+                ContentType: "image/jpeg"
+            });
 
-				]
-			},
-		]
-	})
-	await Chat.update({latestMessageId:message.id},
-		
-			{
-		where:{id:chatId}
-	})
-	;
+            await s3Client.send(command);
+            console.log("file is successfully uploaded");
+            console.log("starting getobject");
 
-	res.json(newMessages);
+            const command2 = new GetObjectCommand({
+                Bucket: "newtesting12",
+                Key: filename
+            });
 
-	}catch(err){
+            fileurl = await getSignedUrl(s3Client, command2);
+        }
 
-		res.status(400).json({message:err.message})
+        console.log(fileurl);
 
-	}
+        console.log("start creating message model");
+        const message = await Message.create({
+            senderId: req.user.id,
+            content: fileurl ? fileurl : content,
+            chatId: chatId
+        });
 
+        // fetch new messages with associated chat and sender
+        const newMessages = await Message.findByPk(message.id, {
+            include: [
+                {
+                    model: User,
+                    as: 'sender',
+                    attributes: ['id', 'username']
+                },
+                {
+                    model: Chat,
+                    as: 'chat',
+                    include: [
+                        {
+                            model: User,
+                            as: 'users',
+                            attributes: ['username', 'email']
+                        }
+                    ]
+                }
+            ]
+        });
 
-}
+        await Chat.update({ latestMessageId: message.id }, {
+            where: { id: chatId }
+        });
+
+        res.json(newMessages);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
