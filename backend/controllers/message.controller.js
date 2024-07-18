@@ -4,6 +4,12 @@ const Chat=require("../models/chat");
 const {S3Client , PutObjectCommand ,GetObjectCommand} = require("@aws-sdk/client-s3");
 const {getSignedUrl}=require("@aws-sdk/s3-request-presigner");
 const fs=require("fs");
+
+
+
+
+
+
 exports.allMessages=async(req,res)=>{
 
 

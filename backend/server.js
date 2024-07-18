@@ -58,6 +58,7 @@ app.use("/api",messageRouter);
 
 // })
 
+
 sequelize
  .sync()
 .then(result=>{

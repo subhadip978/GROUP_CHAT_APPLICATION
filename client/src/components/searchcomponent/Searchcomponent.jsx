@@ -107,7 +107,7 @@ const accessChat=async(userId)=>{
           <div className="userinfo">
          
             <span >{user.username}</span>
-            <p>Hello</p>
+           
           </div>
         </div>
 			)

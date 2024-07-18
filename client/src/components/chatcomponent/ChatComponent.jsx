@@ -70,7 +70,6 @@ const ChatComponent = ({fetchAgain}) => {
 			
 		
 			
-				<p>Hello janu</p>
 			</div>
 
 			</div>

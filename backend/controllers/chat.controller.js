@@ -112,7 +112,7 @@ exports.createChat=async(req,res)=>{
 						model:User,
 						as :'users',
 						attributes:{exclude:['password']},
-		  
+					
 				   },
 				  
 				});
@@ -143,19 +143,37 @@ exports.fetchChat=async(req,res)=>{
 	try{
 		const fetchchats=await Chat.findAll({
 			
-			through:{
-				where:{userId:req.user.id}
-			},
+			
 			include:[{
 				model:User,
 				as:'users',
 				attributes:{exclude:['password']},
+				where:{
+					id:req.user.id
+							
+				}
 			}
 			
 			]
 		})
+		console.log(fetchchats[0].id)
 
-res.send(fetchchats);
+		const newChat=await Chat.findAll({where:{
+			id:fetchchats[0].id
+		},
+		include:[
+			{
+				model:User,
+				as:'users',
+				attributes:{exclude:['password']},
+
+			}
+		]
+	
+	
+	})
+
+res.send(newChat);
 
 	}catch(err){
 		console.log(err);
