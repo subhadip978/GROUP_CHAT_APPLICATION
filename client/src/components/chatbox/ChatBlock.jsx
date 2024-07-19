@@ -8,13 +8,14 @@ import { ChatContext } from '../../context/ChatProvider';
 
 
 const ChatBlock = ({fetchAgain,setFetchAgain}) => {
-	const {selectedChat}=useContext(ChatContext);
+	const {selectedChat,user}=useContext(ChatContext);
 
 
   return (
 	<div className='chatblock'>
 		<div className="chatinfo">
-			<span>sd</span>
+		{user && 
+			<span >{user.name}</span>}
 		</div>
 		<Messages  fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
 	{/* <Input/> */}

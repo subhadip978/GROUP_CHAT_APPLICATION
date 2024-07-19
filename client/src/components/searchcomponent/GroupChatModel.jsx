@@ -138,7 +138,7 @@ const handleGroup=(userToadd)=>{
   
   return (
 	<Box >
-			 <span onClick={onOpen}><AddIcon boxSize={6} /></span>
+			 <button onClick={onOpen}><AddIcon boxSize={6} /></button>
 
 				<Modal isOpen={isOpen} onClose={onClose} >
 				  <ModalOverlay />

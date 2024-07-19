@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import {useNavigate,Link} from 'react-router-dom'
 import axios from 'axios'
+import '../signup/signup.scss'
 
 const Signin = () => {
 
@@ -31,12 +32,10 @@ const Signin = () => {
 		}
 	}
   return (
-	<div>
-
-
-
-
-
+	<div className="formContainer">
+		<div className="formWrapper">
+			<span>X-Chat</span>
+			<span>Sign in</span>
 		<form >
 
 			<input type="email" name="email" id="email" 		autoComplete="email" onChange={handleChange}/>
@@ -44,6 +43,7 @@ const Signin = () => {
 		<button onClick={handleSubmit}>signin</button>
 		</form>
 		<p>YOU DONT HAVE ACCOUNT ?<Link to="/"> signup</Link></p>
+	</div>
 	</div>
   )
 }

@@ -14,14 +14,10 @@ const ChatComponent = ({fetchAgain}) => {
 
 
  const fetchChat=async()=>{
-	 	const config={
-	 		headers:{
-	 			Authorization :true,
-	 		},
-	 	};
+	 	
 				
 	 	try{
-	 		const {data}=await axios.get("/api/chat",config);
+	 		const {data}=await axios.get("/api/chat",{withCredentials:true});
 	 		console.log(data);
 	 		setChats(data);
 

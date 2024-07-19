@@ -156,24 +156,39 @@ exports.fetchChat=async(req,res)=>{
 			
 			]
 		})
+		if (fetchchats.length === 0) {
+			console.log('No chats found for the user.');
+			return; // or handle this case as needed
+		}
+		
+		const chatIds = fetchchats.map(chat => chat.id);
+		console.log('Chat IDs:', chatIds);
+		
 		console.log(fetchchats[0].id)
 
-		const newChat=await Chat.findAll({where:{
-			id:fetchchats[0].id
-		},
-		include:[
-			{
-				model:User,
-				as:'users',
-				attributes:{exclude:['password']},
 
-			}
-		]
-	
-	
-	})
+	const newChat=await Chat.findAll({where:{
+		id:{
+			[Op.in]: chatIds
+		}
+	},
+	include:[
+		{
+			model:User,
+			as:'users',
+			attributes:{exclude:['password']},
+
+		}
+	]
+
+
+})
+
 
 res.send(newChat);
+
+
+
 
 	}catch(err){
 		console.log(err);
@@ -272,6 +287,17 @@ exports.renameGroup=async(req,res)=>{
 	}
 	catch(err){
 		console.log(err);
+		res.status(500).json({message:'Internal server error'})
+
+	}
+}
+
+exports.groupSearch=async(req,res)=>{
+	try{
+
+
+	}catch(err){
+		console.log(err)
 		res.status(500).json({message:'Internal server error'})
 
 	}

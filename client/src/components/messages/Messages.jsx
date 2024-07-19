@@ -36,7 +36,7 @@ const fetchMessages=async()=>{
 
 		try{
 
-			const {data}=await axios.get(`/api/message/${selectedChat.id}`, {authorization:true});
+			const {data}=await axios.get(`/api/message/${selectedChat.id}`, {withCredentials:true});
 			console.log(data);
 			console.log(messages);
 
@@ -118,11 +118,11 @@ useEffect(()=>{
 // 			socket.emit("setup",user);
 // 			socket.on("connection",()=>setSocketConnected)
  	 	// }
-		// setInterval(()=>{
+		//  setInterval(()=>{
 
- 	// 	fetchMessages();
- 	// 	console.log(5);
- 	// },50000)
+ 	 	// fetchMessages();
+ 	 	// console.log(5);
+ 	//  },5000)
 	
 
 fetchMessages();
@@ -213,11 +213,11 @@ fetchMessages();
         <img src="" alt=""  />
         
         <input type="file" onChange={fileSelected} ref={fileref}
-		 style={{display:"none", height:"10px"}}
+		 style={{display:"none"}}
 		  name="" id="file" />
 
        <label htmlFor="file">
-      <img src={Img} alt=""   onClick={selectFile}/>
+      <img src={Img} alt=""  style={{height:"90px", width:"90px", minHeight: "60px" }} onClick={selectFile}/>
        </label>
 
         <button onClick={sendMessage}>send</button>

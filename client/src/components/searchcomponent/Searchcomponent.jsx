@@ -4,6 +4,7 @@ import { Drawer } from '@chakra-ui/react'
 import image from '../../assets/profile.jpg'
 import {  useToast } from '@chakra-ui/react'
 
+import {Search2Icon} from '@chakra-ui/icons'
 
 import GroupChatModel from './GroupChatModel'
 import { useContext,useState } from 'react'
@@ -91,7 +92,9 @@ const accessChat=async(userId)=>{
 			 id="" 
 			 value={search}
 			  onChange={(e)=>setSearch(e.target.value)}/>
-			 <button  onClick={handleSearch}>search</button>
+			 <button  onClick={handleSearch}>
+				<Search2Icon boxSize={5} />
+				</button>
 
 
 		<GroupChatModel/>
