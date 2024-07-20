@@ -5,10 +5,12 @@ import { useToast } from '@chakra-ui/react';
 import { ChatContext } from '../../context/ChatProvider'
 import { getSender } from '../../config/ChatLogic';
 import Img from '../../assets/icon.svg'
+import Img1 from '../../assets/send.png'
 import UpdateGroupChatModel from '../searchcomponent/UpdateGroupChatModel'
 import axios from 'axios';
 // import io from 'socket.io-client'
 import MessageBar from './MessageBar';
+import './message.scss'
 import { useRef } from 'react';
 
 // const ENDPOINT="http://localhost:3000"
@@ -35,6 +37,7 @@ const fetchMessages=async()=>{
 
 
 		try{
+			console.log(selectedChat.id);
 
 			const {data}=await axios.get(`/api/message/${selectedChat.id}`, {withCredentials:true});
 			console.log(data);
@@ -118,14 +121,13 @@ useEffect(()=>{
 // 			socket.emit("setup",user);
 // 			socket.on("connection",()=>setSocketConnected)
  	 	// }
-		//  setInterval(()=>{
+		   setMessages([]);
+		   const intervalId = setInterval(() => {
+		 	fetchMessages();
+		   }, 3000);
 
- 	 	// fetchMessages();
- 	 	// console.log(5);
- 	//  },5000)
-	
-
-fetchMessages();
+		   return () => clearInterval(intervalId);
+ 	 
 
  },[selectedChat])
 
@@ -140,18 +142,21 @@ fetchMessages();
  }
 
   return (
+	
+	
+
 	<div className='messages'
-	style={{
-		height: 'calc(100vh - 120px)', 
-    overflowY: 'auto',
-    padding: '10px',
-    backgroundColor: '#f0f0f0',
-	}}
+	// style={{
+		
+	//   height: 'calc(100vh - 120px)',   
+	//   overflowY: 'auto',   
+    // backgroundColor: '#f0f0f0',
+	// }}
 	
 	>
 
 
-		 <div >
+		 <div className="senderInfo" style={{ borderBottom:'2px solid teal', height:"50px", backgroundColor:"red"}} >
 
 			{selectedChat ?
 
@@ -162,7 +167,7 @@ fetchMessages();
 
 				</>
 			):(
-				<div>
+				<div >
 				
 				<span>
 
@@ -181,27 +186,31 @@ fetchMessages();
 			
 			:(
 
-				<div>lets start the chat </div>
+				<div style={{ height:"40px"}}>..............lets start the chat </div>
 
 			)
 		
 		
 		}
+		</div>
 
 		{
-			selectedChat &&
+			selectedChat ?(
 
-			 <div>
+			 <div >
 
 				<MessageBar  messages={messages}/>
-			 </div>
+			 </div>):(
+				<div className='message-content'>
+
+				</div>
+			 )
 		}
 
-		 </div>
+		 
 
 
-
-
+		
 		 <div className='inputs'>
     <input type="text" 
 	 placeholder='Type something.....' 
@@ -220,10 +229,13 @@ fetchMessages();
       <img src={Img} alt=""  style={{height:"90px", width:"90px", minHeight: "60px" }} onClick={selectFile}/>
        </label>
 
-        <button onClick={sendMessage}>send</button>
+	   <img src={Img1} alt="" style={{height:"70px", width:"80px", minHeight: "60px" }} onClick={sendMessage}/>
+
+        {/* <button onClick={sendMessage}>{Img1}</button> */}
       </div>
 
   </div>
+
 
 
 

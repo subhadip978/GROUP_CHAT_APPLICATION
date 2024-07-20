@@ -15,7 +15,8 @@ const ChatBlock = ({fetchAgain,setFetchAgain}) => {
 	<div className='chatblock'>
 		<div className="chatinfo">
 		{user && 
-			<span >{user.name}</span>}
+			<span >{user.name}</span>
+			}
 		</div>
 		<Messages  fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
 	{/* <Input/> */}
@@ -24,5 +25,6 @@ const ChatBlock = ({fetchAgain,setFetchAgain}) => {
 	</div>
   )
 }
+
 
 export default ChatBlock

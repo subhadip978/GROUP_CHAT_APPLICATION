@@ -1,0 +1,49 @@
+ 
+ .messages{
+	display: flex;
+	flex-direction: column;
+ }
+ .message-content{
+	background-color: #ddddf7;
+	padding: 10px;
+	// height: calc(100% - 100px);
+	height: 350px;
+	 overflow: scroll;
+	 overflow-x: hidden;
+
+  }
+.inputs{
+	height: 50px;		
+	display: flex;
+	align-items: center;	 
+	justify-content: space-around;
+	
+ background-color: wheat;
+
+	img{
+		
+		cursor: pointer;
+		
+	}
+
+	input{
+		width: 100%;
+		
+		border: none;
+		font-size: 18px;
+
+		&::placeholder{
+			color: #2f2f2f;;
+
+		}
+	}
+
+	.send{
+		// background-color: red;
+		margin-left: 20px ;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+
+		}
+}

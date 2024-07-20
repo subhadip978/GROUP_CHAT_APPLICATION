@@ -94,10 +94,11 @@ const accessChat=async(userId)=>{
 			  onChange={(e)=>setSearch(e.target.value)}/>
 			 <button  onClick={handleSearch}>
 				<Search2Icon boxSize={5} />
-				</button>
 
 
 		<GroupChatModel/>
+				</button>
+
 			{/* <button>ADD NEW GROUP</button>
 		</GroupChatModel> */}
 

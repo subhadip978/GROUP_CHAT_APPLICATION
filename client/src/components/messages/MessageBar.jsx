@@ -2,13 +2,13 @@ import React from 'react'
 import { ChatContext } from '../../context/ChatProvider'
 import { useContext } from 'react'
 import { isSameSender,isLastMessage } from '../../config/ChatLogic'
-
+import './message.scss'
 const MessageBar = ({messages}) => {
 
 const {user}=useContext(ChatContext)
 
   return (
-	<div className="message-content">
+	<div className="message-content" >
 
 		
 			{messages.map((m,i)=>(

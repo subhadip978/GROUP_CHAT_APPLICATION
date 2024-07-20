@@ -129,7 +129,6 @@ const handleGroup=(userToadd)=>{
 				return ;
 			}
 			console.log(userToadd);
-
 	setSelectedUsers([...selectedUsers,userToadd])
 
 }
