@@ -156,7 +156,7 @@ useEffect(()=>{
 	>
 
 
-		 <div className="senderInfo" style={{ borderBottom:'2px solid teal', height:"50px", backgroundColor:"red"}} >
+		 <div className="senderInfo" style={{ borderBottom:'2px solid teal', height:"50px", backgroundColor:"wheat",}} >
 
 			{selectedChat ?
 
@@ -167,9 +167,9 @@ useEffect(()=>{
 
 				</>
 			):(
-				<div >
+				<div style={{display:"flex" ,flexDirection:"row", justifyContent:"space-around", alignItems:"center",gap:"80px"}} >
 				
-				<span>
+				<span style={{"marginLeft":"30px"}}>
 
 					{selectedChat.chatName.toUpperCase()}
 					</span>

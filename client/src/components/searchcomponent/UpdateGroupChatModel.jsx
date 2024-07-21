@@ -19,10 +19,11 @@ import {
 	
 	
   } from '@chakra-ui/react'
+  import { EditIcon } from '@chakra-ui/icons'
   import { useContext,useState } from 'react'
 import { ChatContext } from '../../context/ChatProvider'
 import UserBadgeItem from '../uerList/UserBadgeItem'
-
+import Img3 from "../../assets/edit-removebg-preview.png"
 import axios from 'axios'
 
 const UpdateGroupChatModel = ({fetchAgain,setFetchAgain}) => {
@@ -80,7 +81,9 @@ const UpdateGroupChatModel = ({fetchAgain,setFetchAgain}) => {
 
 	return (
 		<>
-		  <Button onClick={onOpen}>Open Modal</Button>
+		  <Button onClick={onOpen} style={{"backgroundColor":"transparent"}}>
+			<img src={Img3} alt="" style={{"height":"30px", }}/>
+		  </Button>
 	
 		  <Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
@@ -104,7 +107,7 @@ const UpdateGroupChatModel = ({fetchAgain,setFetchAgain}) => {
 				<FormControl>
 
 					<Input 
-					placeholder=''
+					placeholder='Enter a new group name'
 					onChange={(e)=>setGroupChatName(e.target.value)}  
 					
 					/>
@@ -113,10 +116,7 @@ const UpdateGroupChatModel = ({fetchAgain,setFetchAgain}) => {
 
 				
 
-				<Button onClick={handleRename}>
-					Update
-					
-				</Button>
+				
 
 
 				<FormControl>
@@ -136,7 +136,10 @@ const UpdateGroupChatModel = ({fetchAgain,setFetchAgain}) => {
 				<Button colorScheme='blue' mr={3} onClick={onClose}>
 				  Close
 				</Button>
-				<Button variant='ghost'>Secondary Action</Button>
+				<Button onClick={handleRename}>
+					Update
+					
+				</Button>
 			  </ModalFooter>
 			</ModalContent>
 		  </Modal>

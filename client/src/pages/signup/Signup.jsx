@@ -47,7 +47,7 @@ const Signup = () => {
 		<input type="password" name="password" id="" onChange={handleChange}/>
 		<button onClick={handleSubmit}>submit</button>
 	</form>
-	<p>You dont have account ? Signin <Link to="/signin">Signin</Link></p>
+	<p>You dont have account ?  <Link to="/signin">Signin</Link></p>
 		</div>
 		
 

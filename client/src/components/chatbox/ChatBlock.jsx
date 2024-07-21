@@ -15,7 +15,7 @@ const ChatBlock = ({fetchAgain,setFetchAgain}) => {
 	<div className='chatblock'>
 		<div className="chatinfo">
 		{user && 
-			<span >{user.name}</span>
+			<span style={{"backgroundColor":"teal",padding:"10px 10px", borderRadius:"50px"}} >{user.name}</span>
 			}
 		</div>
 		<Messages  fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>

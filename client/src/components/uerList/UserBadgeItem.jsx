@@ -9,6 +9,8 @@ const UserBadgeItem = ({user,handleFunction}) => {
 
 		console.log(user)
 	},[]);
+
+
   return (
 	<Box
 	px={1}
@@ -17,7 +19,9 @@ const UserBadgeItem = ({user,handleFunction}) => {
 	cursor="pointer"
 	bg="purple"
 	color="white"
+	width={40}
 	borderRadius="50"
+	mt="4px"
 	 onClick={handleFunction} >
 
 	<Text margin={1}>	{user.username}</Text>	
